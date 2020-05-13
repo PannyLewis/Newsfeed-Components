@@ -1,5 +1,5 @@
-/* This is the data we will be using to create our articles */
-/* Look over this data, then proceed to line 91*/
+/* This is the item we will be using to create our articles */
+/* Look over this item, then proceed to line 91*/
 const data = [
   {
     title: 'Lambda School Students: "We\'re the best!"',
@@ -101,17 +101,34 @@ const data = [
 
   Hint: You will need to use createElement more than once here!
 
-  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
+  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the item object above.
 
   Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
 
   Step 3: Don't forget to return something from your function!
 
-  Step 4: Outside your function, loop over the data. At each iteration you'll use your component to create an article and append it to the DOM inside the 'articles' div.
+  Step 4: Outside your function, loop over the item. At each iteration you'll use your component to create an article and append it to the DOM inside the 'articles' div.
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 */
 
+// per the html, there is a tag:  <div class="articles"></div>.  ??? not sure what is going here ???
+const articles = document.querySelector(".articles");
+
+data.forEach((item) => {
+  // take everything in the function and display them under the html tag articles
+  articles.appendChild(
+    articleMaker(
+      item.title,
+      item.date,
+      item.firstParagraph,
+      item.secondParagraph,
+      item.thirdParagraph
+    )
+  );
+});
+
+// the parameters are the keys of the object so Object.keys
 function articleMaker(
   title,
   date,
@@ -119,7 +136,7 @@ function articleMaker(
   secondParagraph,
   thirdParagraph
 ) {
-  // create elements:  assing variables to the html tags
+  // create elements:  assign variables to the html tags
   const article = document.createElement("div");
   const articleTitle = document.createElement("h2");
   const articleDate = document.createElement("p");
@@ -129,12 +146,12 @@ function articleMaker(
   const button = document.createElement("span");
 
   // append elements to the parent
-  article.appendChild("articleTitle");
-  article.appendChild("articleDate");
-  article.appendChild("paragraph1");
-  article.appendChild("paragraph2");
-  article.appendChild("paragraph3");
-  article.appendChild("button");
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(paragraph1);
+  article.appendChild(paragraph2);
+  article.appendChild(paragraph3);
+  article.appendChild(button);
 
   // create class name  exactly as declared above in the instructions
   // <div class="article">
@@ -142,6 +159,7 @@ function articleMaker(
   // <span class='expandButton'></span>
   // ??? are there classes for h2 and p ???
   article.classList.add("article");
+  articleTitle.classList.add("h2");
   articleDate.classList.add("date");
   button.classList.add("expandButton");
 
@@ -160,5 +178,9 @@ function articleMaker(
     // how does it know which one is opposite of article-open?
   });
 
-  return articles;
+  return article;
 }
+
+//stretch greensock animation
+gsap.from("h1", { duration: 3, x: 300, opacity: 0, scale: 0.5 });
+gsap.to("h1", { duration: 2, y: 1, ease: "bounce" });
